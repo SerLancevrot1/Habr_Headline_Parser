@@ -29,9 +29,9 @@ namespace Habr_Headline_Parser.Core
 
             if(response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-
+                sourse = await response.Content.ReadAsStringAsync();
             }
-            return sourse;
+            return sourse; 
         }
     }
 }
