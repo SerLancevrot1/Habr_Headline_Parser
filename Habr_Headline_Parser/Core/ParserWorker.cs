@@ -17,7 +17,7 @@ namespace Habr_Headline_Parser.Core
         #region properties
 
         public event Action<object, T> OnNewData;
-        public event Action<object> OnCompleted;
+        public event Action<object> OnCompleted; 
 
         public IParser<T> Parser
         {
@@ -79,8 +79,9 @@ namespace Habr_Headline_Parser.Core
 
                 var result = parser.Parse(document);
 
-                
+                OnNewData?.Invoke(this, result);
             }
+            OnCompleted?.Invoke(this);
         }
     }
 }

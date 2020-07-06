@@ -9,6 +9,12 @@ namespace Habr_Headline_Parser.Habr
 {
     class HabrSettings : IParserSettings
     {
+        public HabrSettings(int start, int end)
+        {
+            StartPoint = start;
+            EndPoint = end;
+        }
+
         string BaseURL { get; set; } = "https://habr.com/ru/all";
         string Prefix { get; set; } = "page{CurrentId}";
         int StartPoint { get; set; }
