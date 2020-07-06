@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AngleSharp.Html.Parser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,9 @@ namespace Habr_Headline_Parser.Core
         HtmlLoader loader;
 
         #region properties
+
+        public event Action<object, T> OnNewData;
+        public event Action<object> OnCompleted;
 
         public IParser<T> Parser
         {
@@ -56,12 +60,27 @@ namespace Habr_Headline_Parser.Core
 
         public void Start()
         {
-
+            Worker();
         }
 
         public void Abort()
         {
 
+        }
+
+        private async void Worker()
+        {
+            for(int i = parserSettings.StartPoint; i<= parserSettings.EndPoint; i++)
+            {
+                var source = await loader.GetSourseByPageId(i);
+                var domParser = new HtmlParser();
+
+                var document = await domParser.ParseDocumentAsync(source);
+
+                var result = parser.Parse(document);
+
+                
+            }
         }
     }
 }
